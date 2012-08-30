@@ -15,6 +15,7 @@
  */
 package ness.solo;
 
+
 public class GalaxyMain
 {
     public static void main(final String ... args)

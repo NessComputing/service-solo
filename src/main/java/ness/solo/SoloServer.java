@@ -15,19 +15,13 @@
  */
 package ness.solo;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.google.common.annotations.VisibleForTesting;
-import com.google.common.collect.ImmutableMap;
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
 import com.google.inject.Module;
+
 import com.nesscomputing.config.Config;
-import com.nesscomputing.httpserver.HttpServer;
+import com.nesscomputing.event.NessEventModule;
+import com.nesscomputing.event.jms.JmsEventModule;
+import com.nesscomputing.quartz.NessQuartzModule;
 import com.nesscomputing.server.StandaloneServer;
 import com.nesscomputing.server.templates.BasicGalaxyServerModule;
 
@@ -36,13 +30,16 @@ import com.nesscomputing.server.templates.BasicGalaxyServerModule;
  */
 public class SoloServer extends StandaloneServer
 {
-    @Inject
-    private HttpServer httpServer;
-
     @Override
     public Module getMainModule(final Config config)
     {
         return new SoloModule(config);
+    }
+
+    @Override
+    public String getServerType()
+    {
+        return "solo";
     }
 
     public static class SoloModule extends AbstractModule
@@ -57,26 +54,12 @@ public class SoloServer extends StandaloneServer
         @Override
         public void configure()
         {
+            install(new NessEventModule());
+            install(new JmsEventModule(config));
+
             install (new BasicGalaxyServerModule(config));
-
-            bind(SoloResource.class);
+            install (new NessQuartzModule(config));
         }
     }
 
-    @VisibleForTesting
-    int getPort()
-    {
-        return httpServer.getConnectors().get("internal-http").getPort();
-    }
-
-    @Path("/")
-    public static class SoloResource
-    {
-        @GET
-        @Produces(MediaType.APPLICATION_JSON)
-        public Response getSoloData()
-        {
-            return Response.ok(ImmutableMap.of("result", "Hello, World")).build();
-        }
-    }
 }

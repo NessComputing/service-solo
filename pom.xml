@@ -4,7 +4,7 @@
   <parent>
     <groupId>com.nesscomputing</groupId>
     <artifactId>ness-oss-parent</artifactId>
-    <version>16</version>
+    <version>18-SNAPSHOT</version>
   </parent>
 
   <groupId>ness.hackery</groupId>
@@ -14,8 +14,12 @@
 
   <properties>
     <ness.solo.mainclass>ness.solo.SoloMain</ness.solo.mainclass>
-    <ness.galaxy.mainclass>ness.solo.GalaxyMain</ness.galaxy.mainclass>
+    <galaxy.mainclass>ness.solo.GalaxyMain</galaxy.mainclass>
     <dep.jersey.version>1.13</dep.jersey.version>
+    <dep.ness.event>1.0.0</dep.ness.event>
+    <dep.ness.server>1.0.1-SNAPSHOT</dep.ness.server>
+    <dep.jersey.version>1.13</dep.jersey.version>
+    <dep.jackson.version>1.9.9</dep.jackson.version>
   </properties>
 
   <dependencies>
@@ -28,20 +32,62 @@
     <dependency>
       <groupId>com.nesscomputing.components</groupId>
       <artifactId>ness-server</artifactId>
-      <version>1.0.0</version>
+      <version>${dep.ness.server}</version>
     </dependency>
 
     <dependency>
       <groupId>com.nesscomputing.components</groupId>
       <artifactId>ness-httpserver</artifactId>
-      <version>2.1.1</version>
+      <version>2.1.2</version>
     </dependency>
 
     <dependency>
       <groupId>com.nesscomputing.components</groupId>
       <artifactId>ness-server-templates</artifactId>
-      <version>1.0.0</version>
+      <version>${dep.ness.server}</version>
     </dependency>
+
+      <dependency>
+        <groupId>com.nesscomputing.components</groupId>
+        <artifactId>ness-jackson</artifactId>
+        <version>1.1.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.nesscomputing.components</groupId>
+        <artifactId>ness-event-core</artifactId>
+        <version>${dep.ness.event}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.nesscomputing.components</groupId>
+        <artifactId>ness-event-jms</artifactId>
+        <version>${dep.ness.event}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>com.nesscomputing.components</groupId>
+        <artifactId>ness-quartz</artifactId>
+        <version>1.0.0</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.quartz-scheduler</groupId>
+        <artifactId>quartz</artifactId>
+        <version>2.1.6</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-mapper-asl</artifactId>
+        <version>${dep.jackson.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.codehaus.jackson</groupId>
+        <artifactId>jackson-core-asl</artifactId>
+        <version>${dep.jackson.version}</version>
+      </dependency>
 
     <dependency>
       <groupId>com.sun.jersey</groupId>

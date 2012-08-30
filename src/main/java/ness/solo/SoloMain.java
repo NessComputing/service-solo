@@ -27,11 +27,32 @@ public class SoloMain
             public Config getConfig()
             {
                 return Config.getFixedConfig("ness.httpserver.service-uri", "http://localhost:8080/",
-                                             "ness.httpserver.class", SoloJetty8HttpServer.class.getName());
+                                             "ness.httpserver.class", SoloJetty8HttpServer.class.getName(),
+                                             "ness.job.ticker.class", MessageTickerJob.class.getName(),
+                                             "ness.job.ticker.repeat", "1s",
+                                             "ness.job.ticker.enabled", "true",
+                                             "org.quartz.scheduler.instanceName", "TickingScheduler",
+                                             "org.quartz.threadPool.threadCount", "3",
+                                             "org.quartz.scheduler.interruptJobsOnShutdown", "true",
+                                             "ness.quartz.start-delay", "5s",
+                                             "ness.quart.shutdown-wait-for-jobs", "false",
+                                             "ness.event.transport", "jms",
+                                             "ness.event.jms.enabled", "true",
+                                             "ness.event.jms.transmit-enabled", "true",
+                                             "ness.event.jms.listen-enabled", "false",
+
+                                             "ness.jms.enabled", "true",
+                                             "ness.jms.lazy-transmitter-connect", "false",
+                                             "ness.jms.connection-url", "failover:(tcp://localhost:21045?daemon=true)?maxReconnectAttempts=10",
+                                             "ness.jms.listen-enabled", "false",
+                                             "ness.jms.transmit-enabled", "true",
+
+                                             "ness.jms.jms-event.enabled", "true",
+                                             "ness.jms.jms-event.producer-queue-length", "2000",
+                                             "ness.jms.jms-event.transmit-timeout", "100ms");
             }
         };
 
         server.startServer();
     }
 }
-

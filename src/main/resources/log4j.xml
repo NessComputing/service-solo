@@ -35,6 +35,13 @@
     <level value="fatal" />
   </logger>
 
+  <logger name="ness">
+    <level value="debug" />
+  </logger>
+  <logger name="com.nesscomputing">
+    <level value="debug" />
+  </logger>
+
   <!--  set the root loggers -->
   <root>
     <level value="info" />
